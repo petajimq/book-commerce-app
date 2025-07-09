@@ -15,7 +15,7 @@ CREATE TABLE "User" (
 CREATE TABLE "Purchase" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "booId" TEXT NOT NULL,
+    "bookId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Purchase_pkey" PRIMARY KEY ("id")

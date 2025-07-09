@@ -1,13 +1,14 @@
-"use client";
-import { setEngine } from "crypto";
-import { signOut, useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { signOut } from "next-auth/react";
+import { nextAuthOptions } from "../lib/next-auth/options";
+import { User } from "../types/types";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Header = () => {
-  const { data: session } = useSession();
-  const user = session?.user;
+const Header = async () => {
+  const session = await getServerSession(nextAuthOptions);
+  const user = session?.user as User;
 
   return (
     <header className="bg-slate-600 text-gray-100 shadow-lg">
@@ -31,7 +32,7 @@ const Header = () => {
 
           {user ? (
             <button
-              onClick={() => signOut({ callbackUrl: "/login" })}
+              // onClick={() => signOut({ callbackUrl: "/login" })}
               className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               ログアウト

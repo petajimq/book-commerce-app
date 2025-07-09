@@ -4,7 +4,7 @@ import type { NextConfig } from 'next';
  * Next.js 設定オブジェクト
  */
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
