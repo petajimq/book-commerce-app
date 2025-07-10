@@ -29,7 +29,7 @@ export async function POST(request: Request, response: Response) {
     } else {
       return NextResponse.json({ message: "すでに購入済です。" });
     }
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(err);
   }
 }
