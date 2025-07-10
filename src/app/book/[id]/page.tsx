@@ -6,7 +6,7 @@ import Image from "next/image";
 interface PageProps {
   params: Promise<any>;
 }
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DetailBook = async ({ params }: PageProps) => {
   const resolvedParams = (await params) as { id: string };
   const { id } = resolvedParams;
