@@ -3,24 +3,32 @@ export const dynamic = "force-dynamic";
 import { getDetailBook } from "@/app/lib/microcms/client";
 import Image from "next/image";
 
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
 
-const DetailBook = async ({
-  params,
-}: {
-  params: Promise<{ id: string }>; 
-}) => {
-  const { id } = await params;
+const DetailBook = async ({ params }: PageProps) => {
+  const { id } = params;
   const book = await getDetailBook(id);
+
+  if (!book) {
+    return <div className="container mx-auto p-4 text-center">書籍が見つかりませんでした。</div>;
+  }
+
   return (
     <div className="container mx-auto p-4">
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-        <Image
-          src={book.thumbnail.url}
-          alt={book.title}
-          className="w-full h-80 object-cover object-center"
-          width={700}
-          height={700}
-        />
+        {book.thumbnail?.url && (
+          <Image
+            src={book.thumbnail.url}
+            alt={book.title}
+            className="w-full h-80 object-cover object-center"
+            width={700}
+            height={700}
+          />
+        )}
         <div className="p-4">
           <h2 className="text-2xl font-bold">{book.title}</h2>
           <div
@@ -29,12 +37,16 @@ const DetailBook = async ({
           />
 
           <div className="flex justify-between items-center mt-2">
-            <span className="text-sm text-gray-500">
-              公開日: {new Date(book.publishedAt as string).toLocaleString()}
-            </span>
-            <span className="text-sm text-gray-500">
-              最終更新: {new Date(book.updatedAt as string).toLocaleString()}
-            </span>
+            {book.publishedAt && (
+              <span className="text-sm text-gray-500">
+                公開日: {new Date(book.publishedAt).toLocaleString()}
+              </span>
+            )}
+            {book.updatedAt && (
+              <span className="text-sm text-gray-500">
+                最終更新: {new Date(book.updatedAt).toLocaleString()}
+              </span>
+            )}
           </div>
         </div>
       </div>
