@@ -4,14 +4,12 @@ import { getDetailBook } from "@/app/lib/microcms/client";
 import Image from "next/image";
 
 type PageProps = {
-  params: Promise<{
-    id: string;
-  }>;
+  id: string;
 };
 
-const DetailBook = async (props: PageProps) => {
-  const params = await props.params;
-  const book = await getDetailBook(params.id);
+const DetailBook = async (params: Promise<PageProps>) => {
+  const { id } = await params;
+  const book = await getDetailBook(id);
   return (
     <div className="container mx-auto p-4">
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
