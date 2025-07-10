@@ -3,11 +3,12 @@ export const dynamic = "force-dynamic";
 import { getDetailBook } from "@/app/lib/microcms/client";
 import Image from "next/image";
 
-type PageProps = {
-  id: string;
-};
 
-const DetailBook = async (params: Promise<PageProps>) => {
+const DetailBook = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>; 
+}) => {
   const { id } = await params;
   const book = await getDetailBook(id);
   return (
