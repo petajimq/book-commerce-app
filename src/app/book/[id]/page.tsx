@@ -1,12 +1,18 @@
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 import { getDetailBook } from "@/app/lib/microcms/client";
 import Image from "next/image";
 import React from "react";
 
-const DetailBook = async ({ params }: { params: { id: string } }) => {
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
+
+const DetailBook = async ({ params }: PageProps) => {
   const book = await getDetailBook(params.id);
-  return (  
+  return (
     <div className="container mx-auto p-4">
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
         <Image
@@ -24,8 +30,12 @@ const DetailBook = async ({ params }: { params: { id: string } }) => {
           />
 
           <div className="flex justify-between items-center mt-2">
-            <span className="text-sm text-gray-500">公開日: {new Date(book.publishedAt as string).toLocaleString()}</span>
-            <span className="text-sm text-gray-500">最終更新: {new Date(book.updatedAt as string).toLocaleString()}</span>
+            <span className="text-sm text-gray-500">
+              公開日: {new Date(book.publishedAt as string).toLocaleString()}
+            </span>
+            <span className="text-sm text-gray-500">
+              最終更新: {new Date(book.updatedAt as string).toLocaleString()}
+            </span>
           </div>
         </div>
       </div>
