@@ -11,18 +11,25 @@ export async function POST(request: Request) {
   try {
     const session = await stripe.checkout.sessions.retrieve(sessionId);
 
+    const userId = session.client_reference_id;
+    const bookId = session.metadata?.bookId;
+
+    if (!userId || !bookId) {
+      return NextResponse.json({ error: "セッション情報が不完全です。" }, { status: 400 });
+    }
+
     const existingPurchase = await prisma.purchase.findFirst({
       where: {
-        userId: session.client_reference_id!,
-        bookId: session.metadata?.bookId,
+        userId,
+        bookId,
       },
     });
 
     if (!existingPurchase) {
       const purchase = await prisma.purchase.create({
         data: {
-          userId: session.client_reference_id!,
-          bookId: session.metadata?.bookId!
+          userId,
+          bookId,
         },
       });
       return NextResponse.json({ purchase });

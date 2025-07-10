@@ -11,7 +11,6 @@ type BookProps = {
   isPurchased: boolean;
 };
 
-// eslint-disable-next-line react/display-name
 const Book = ({ book, isPurchased }: BookProps) => {
   const [showModal, setShowModal] = useState(false);
   const { data: session } = useSession();
