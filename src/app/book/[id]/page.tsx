@@ -2,10 +2,14 @@ export const dynamic = "force-dynamic";
 
 import { getDetailBook } from "@/app/lib/microcms/client";
 import Image from "next/image";
-import React from "react";
 
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
 
-const DetailBook = async ({ params }: any) => {
+const DetailBook = async ({ params }: PageProps) => {
   const book = await getDetailBook(params.id);
   return (
     <div className="container mx-auto p-4">
