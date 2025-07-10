@@ -4,13 +4,12 @@ import { getDetailBook } from "@/app/lib/microcms/client";
 import Image from "next/image";
 
 interface PageProps {
-  params: Promise<{
-    id: string;
-  }>;
+  params: Promise<any>;
 }
 
 const DetailBook = async ({ params }: PageProps) => {
-  const { id } = await params;
+  const resolvedParams = (await params) as { id: string };
+  const { id } = resolvedParams;
   const book = await getDetailBook(id);
 
   if (!book) {
